@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>English Mastery Engine 2026</title>
+<!-- PWA — installabile come app su iPhone e Android -->
+<meta name="application-name" content="EME 2026">
+<meta name="description" content="Total English Fluency — Business + Daily Life">
+<meta name="theme-color" content="#080818">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="EME 2026">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%23080818'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0' stop-color='%235b8fff'/%3E%3Cstop offset='1' stop-color='%23a374ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='30' y='30' width='120' height='120' rx='22' fill='url(%23g)'/%3E%3Ctext x='90' y='112' text-anchor='middle' font-size='72' font-family='system-ui,sans-serif'%3E🎯%3C/text%3E%3C/svg%3E">
+<link id="pwa-manifest" rel="manifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital@0;1&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js" onerror="this.onerror=null;this.src='https://unpkg.com/lucide@0.383.0/dist/umd/lucide.js'"></script>
 <style>
 /* ─────────────────────────────────────────────
    DESIGN TOKEN SYSTEM
@@ -659,7 +669,7 @@ function renderNav(){
     <div class="mob-item ${APP.view===n.id?'active':''}" onclick="navigate('${n.id}')">
       <i data-lucide="${n.icon}"></i><span>${n.label.split(' ')[0]}</span>
     </div>`).join('');
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function updateSidebar(){
@@ -678,7 +688,7 @@ function renderView(){
   const el=document.getElementById('view');
   el.innerHTML='';
   (map[APP.view]||vDashboard)(el);
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
   setTimeout(()=>{document.querySelectorAll('.bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0%';setTimeout(()=>b.style.width=w,60);});},100);
 }
 
@@ -819,7 +829,7 @@ function vDashboard(el){
   </div>`;
 
   buildHeatmap('hm-sm',16);
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function miniStat(emoji,label,val,sub,color){
@@ -926,7 +936,7 @@ function vRoutine(el){
     ${taskSection('☀️ Afternoon — Speak & Produce','Use English actively at work',TASKS.afternoon,done)}
     ${taskSection('🌙 Evening — Review & Consolidate','Lock in what you learned today',TASKS.evening,done)}
   </div>`;
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function taskSection(title,sub,tasks,done){
@@ -1092,7 +1102,7 @@ function vStudio(el){
       </div>
     </div>
   </div>`;
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function toggleRec(){isRec?stopRec():startRec();}
@@ -1108,7 +1118,7 @@ function startRec(){
       const pb=document.getElementById('play-btn');if(pb)pb.style.display='inline-flex';
       const ep=document.getElementById('eval-panel');if(ep)ep.style.display='block';
       const rb=document.getElementById('rec-btn');if(rb){rb.innerHTML='<i data-lucide="mic"></i> Record Again';rb.style.background='';}
-      lucide.createIcons();
+      if(typeof lucide!=="undefined")lucide.createIcons();
     };
     mediaRec.start();
     const rb=document.getElementById('rec-btn');
@@ -1213,7 +1223,7 @@ function vGrammar(el){
     </div>
     ${gramTab==='cond'?gCond():gramTab==='pv'?gPV():gramTab==='rs'?gRS():gNT()}
   </div>`;
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function gCond(){
@@ -1424,7 +1434,7 @@ function vGapList(el){
     </div>
     ${glTab==='add'?glAdd():glTab==='review'?glReview():glAll()}
   </div>`;
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function glAdd(){
@@ -1589,7 +1599,7 @@ function vLibrary(el){
     </div>
     ${libTab==='shows'?lShows():libTab==='pods'?lPods():lChallenge()}
   </div>`;
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 function lShows(){
@@ -1738,7 +1748,7 @@ function vProgress(el){
   </div>`;
 
   buildHeatmap('hm-full',52);
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 
 // ──────────────────────────────────────────────────────────
@@ -1789,7 +1799,7 @@ function confirmReset(){
 function openModal(html){
   document.getElementById('modal-content').innerHTML=html;
   document.getElementById('overlay').classList.add('on');
-  lucide.createIcons();
+  if(typeof lucide!=="undefined")lucide.createIcons();
 }
 function closeModal(){document.getElementById('overlay').classList.remove('on');}
 function maybeCloseModal(e){if(e.target===document.getElementById('overlay'))closeModal();}
@@ -1851,3 +1861,57 @@ init();
 ═══════════════════════════════════════════════════════ -->
 </body>
 </html>
+
+<script>
+// ── PWA: Inject Web App Manifest & Service Worker ───────────────────────────
+// This makes the app installable on iPhone (Safari) and Android (Chrome)
+// as a standalone full-screen app with no browser bars.
+(function(){
+
+  // 1. Inline Web App Manifest (injected as Blob URL — no separate file needed)
+  const manifest={
+    name:"English Mastery Engine 2026",short_name:"EME 2026",
+    description:"Total English Fluency — Business + Daily Life",
+    start_url:"./",display:"standalone",
+    background_color:"#080818",theme_color:"#080818",
+    orientation:"portrait-primary",
+    icons:[{
+      src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23080818'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0' stop-color='%235b8fff'/%3E%3Cstop offset='1' stop-color='%23a374ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='80' y='80' width='352' height='352' rx='70' fill='url(%23g)'/%3E%3Ctext x='256' y='330' text-anchor='middle' font-size='220' font-family='system-ui'%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E",
+      sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"
+    }]
+  };
+  const mLink=document.getElementById('pwa-manifest');
+  if(mLink){
+    mLink.href=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/json'}));
+  }
+
+  // 2. Service Worker (offline cache)
+  // Service Worker registration skipped (blob: URL not supported)
+
+  // 3. Android Chrome — "Add to Home Screen" install banner
+  let deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();deferredPrompt=e;
+    setTimeout(()=>{if(deferredPrompt)showInstallBanner();},2500);
+  });
+
+  function showInstallBanner(){
+    if(document.getElementById('eme-install-banner'))return;
+    const b=document.createElement('div');
+    b.id='eme-install-banner';
+    b.style.cssText='position:fixed;bottom:76px;left:50%;transform:translateX(-50%);background:#13132e;border:1.5px solid #2a2a60;border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:center;max-width:340px;width:92%;z-index:1000;box-shadow:0 10px 40px rgba(0,0,0,.7);animation:toast-in .3s ease;font-family:"Plus Jakarta Sans",sans-serif;';
+    b.innerHTML='<div style="font-size:2rem;flex-shrink:0;">📲</div><div style="flex:1;min-width:0;"><div style="font-size:.87rem;font-weight:700;color:#e8eaf6;margin-bottom:3px;">Installa come App</div><div style="font-size:.76rem;color:#7b82a8;line-height:1.4;">Aggiungila alla home screen — si apre come un\'app vera, senza barre del browser</div></div><div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;"><button onclick="window._installEME()" style="background:#5b8fff;color:#fff;border:none;border-radius:7px;padding:7px 13px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">📲 Installa</button><button onclick="document.getElementById(\'eme-install-banner\').remove()" style="background:transparent;color:#7b82a8;border:none;font-size:.72rem;cursor:pointer;font-family:inherit;">No grazie</button></div>';
+    document.body.appendChild(b);
+  }
+
+  window._installEME=async function(){
+    if(!deferredPrompt)return;
+    deferredPrompt.prompt();
+    const{outcome}=await deferredPrompt.userChoice;
+    if(outcome==='accepted')toast('🎉 App installata! Aprila dalla home screen');
+    deferredPrompt=null;
+    const b=document.getElementById('eme-install-banner');if(b)b.remove();
+  };
+
+})();
+</script>
